@@ -3,6 +3,7 @@ package Painel;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -21,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -29,6 +32,12 @@ import Controller.ClientesController;
 import Controller.MainController;
 import Database.Connect;
 import Models.Clientes;
+import View.Main;
+
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -82,6 +91,9 @@ public class Menu extends JFrame {
 		contentPane.add(versionEl);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setForeground(new Color(0, 0, 0));
+		tabbedPane.setBackground(new Color(192, 192, 192));
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		tabbedPane.setBounds(0, 0, 796, 446);
 		contentPane.add(tabbedPane);
 		
@@ -125,6 +137,7 @@ public class Menu extends JFrame {
 		panel_3.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setBounds(0, 0, 791, 232);
 		panel_3.add(scrollPane_1);
 		
@@ -133,6 +146,8 @@ public class Menu extends JFrame {
 		modelo_1.setColumnIdentifiers(clientes_col);
 		
 		table_1 = new JTable();
+		table_1.setEnabled(false);
+		table_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table_1.setModel(modelo_1);
 		
 		// carrega modelo tabela
@@ -146,8 +161,24 @@ public class Menu extends JFrame {
 		
 		JLabel totalEl = new JLabel("Total: "+String.valueOf(num_clientes) + " clientes.");
 		totalEl.setHorizontalAlignment(SwingConstants.RIGHT);
-		totalEl.setBounds(83, 18, 698, 14);
+		totalEl.setBounds(83, 287, 698, 14);
 		panel_1.add(totalEl);
+		
+		JButton refreshBtn = new JButton("atualizar");
+		refreshBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(refreshBtn);
+				modelo_1.setRowCount(0);
+				clientes.loadClientes(modelo_1);
+				JOptionPane.showMessageDialog(null, "Dados atualizados!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+//				currentFrame.dispose();
+//				currentFrame.setVisible(true);
+			}
+		});
+		refreshBtn.setIcon(new ImageIcon(System.getProperty("user.dir")+"\\src\\Images\\refresh-icon.png"));
+		refreshBtn.setHorizontalAlignment(SwingConstants.RIGHT);
+		refreshBtn.setBounds(664, 10, 117, 23);
+		panel_1.add(refreshBtn);
 		
 			
 		JPanel panel_2 = new JPanel();
@@ -165,7 +196,11 @@ public class Menu extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("<html><table><tr><td>aaa</td></tr><tr><td>aaa</td><td>aaa</td></tr></table></html>");
 		panel_4.add(lblNewLabel);
-	}
 		
-	
+		JPanel panel_6 = new JPanel();
+		tabbedPane.addTab("Gerenciar categorias", null, panel_6, null);
+		
+		JPanel panel_5 = new JPanel();
+		tabbedPane.addTab("Administrar vendas", null, panel_5, null);
+	}
 }
