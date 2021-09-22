@@ -135,11 +135,13 @@ public class Menu extends JFrame {
 		table_1 = new JTable();
 		table_1.setModel(modelo_1);
 		
+		// carrega modelo tabela
 		ClientesController clientes = new ClientesController();
 		clientes.loadClientes(modelo_1);
 
 		table_1.setModel(modelo_1);
-
+		num_clientes = table_1.getRowCount();
+		
 		scrollPane_1.setViewportView(table_1);
 		
 		JLabel totalEl = new JLabel("Total: "+String.valueOf(num_clientes) + " clientes.");
