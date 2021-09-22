@@ -7,8 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Database.Connect;
+import javax.swing.table.DefaultTableModel;
 
+import Database.Connect;
 import Models.Clientes;
 
 public class ClientesController {
@@ -17,32 +18,29 @@ public class ClientesController {
 		super();
 	}
 
-	public List<Clientes> loadClientes() {
+	public DefaultTableModel loadClientes(DefaultTableModel modelo) {
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
-		
-		List<Clientes> clienteList = new ArrayList<>();
-		
+
 		try {
 			
 			conn = Connect.getConnection();
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT  * FROM clientes");
 			while(rs.next()) {
-				Clientes cliente = new Clientes();
 				
-				cliente.setId(rs.getInt("id"));
-				cliente.setNome(rs.getString("nome"));
-				cliente.setEndereco(rs.getString("endereco"));
-				cliente.setBairro(rs.getString("bairro"));
-				cliente.setCidade(rs.getString("cidade"));
-				cliente.setEstado(rs.getString("estado"));
-				cliente.setCep(rs.getInt("cep"));
-				cliente.setTelefone(rs.getInt("telefone"));
-				cliente.setDetalhes(rs.getString("detalhes"));
-
-				clienteList.add(cliente);
+				modelo.addRow(new String[] {
+						String.valueOf(rs.getInt("id")),
+						rs.getString("nome"),
+						rs.getString("endereco"),
+						rs.getString("bairro"),
+						rs.getString("cidade"),
+						rs.getString("estado"),
+						rs.getString("cep"),
+						rs.getString("telefone"),
+						rs.getString("detalhes")
+					});
 			
 			}
 
@@ -55,7 +53,7 @@ public class ClientesController {
 //			Connect.closeConnection();
 		}
 		
-		return clienteList;
+		return modelo;
 	}
 
 }

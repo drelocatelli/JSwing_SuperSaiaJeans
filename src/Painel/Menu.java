@@ -3,6 +3,13 @@ package Painel;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -20,6 +27,7 @@ import javax.swing.table.TableRowSorter;
 
 import Controller.ClientesController;
 import Controller.MainController;
+import Database.Connect;
 import Models.Clientes;
 
 
@@ -31,7 +39,7 @@ public class Menu extends JFrame {
 	private JTable table;
 	private JTable table_1;
 	private int num_clientes;
-
+	
 
 	/**
 	 * Launch the application.
@@ -120,17 +128,17 @@ public class Menu extends JFrame {
 		scrollPane_1.setBounds(0, 0, 791, 232);
 		panel_3.add(scrollPane_1);
 		
-		String col[] = {"ID", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Detalhes"};
-				
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-			}, col
-		));
+		String clientes_col[] = {"ID", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Detalhes"};
+		DefaultTableModel modelo_1 = new DefaultTableModel();
+		modelo_1.setColumnIdentifiers(clientes_col);
 		
-		DefaultTableModel modelo_1 = (DefaultTableModel)table_1.getModel();
-		table_1.setRowSorter(new TableRowSorter<DefaultTableModel>(modelo_1));
-		readJTable1();
+		table_1 = new JTable();
+		table_1.setModel(modelo_1);
+		
+		ClientesController clientes = new ClientesController();
+		clientes.loadClientes(modelo_1);
+
+		table_1.setModel(modelo_1);
 
 		scrollPane_1.setViewportView(table_1);
 		
@@ -156,33 +164,6 @@ public class Menu extends JFrame {
 		JLabel lblNewLabel = new JLabel("<html><table><tr><td>aaa</td></tr><tr><td>aaa</td><td>aaa</td></tr></table></html>");
 		panel_4.add(lblNewLabel);
 	}
+		
 	
-	
-	public void readJTable1() {
-		DefaultTableModel modelo_1 = (DefaultTableModel)table_1.getModel();
-		modelo_1.setNumRows(0);
-		
-		ClientesController clientesController = new ClientesController();
-		
-		for(Clientes cliente: clientesController.loadClientes()) {
-			num_clientes += 1;
-		}
-		
-		
-		for(Clientes cliente: clientesController.loadClientes()) {
-		
-			modelo_1.addRow(new String[] {
-					String.valueOf(cliente.getId()),
-					cliente.getNome(),
-					cliente.getEndereco(),
-					cliente.getBairro(),
-					cliente.getCidade(),
-					cliente.getEstado(),
-					String.valueOf(cliente.getCep()),
-					String.valueOf(cliente.getTelefone()),
-					cliente.getDetalhes(),
-				});
-		}
-	
-	}
 }
