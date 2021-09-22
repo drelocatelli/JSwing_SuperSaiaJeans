@@ -28,10 +28,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+import ClienteView.addCliente;
 import Controller.ClientesController;
 import Controller.MainController;
 import Database.Connect;
-import Models.Clientes;
 import View.Main;
 
 import javax.swing.JButton;
@@ -44,6 +44,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.SystemColor;
 
 
 
@@ -196,20 +197,31 @@ public class Menu extends JFrame {
 		refreshBtn.setBounds(664, 10, 117, 23);
 		panel_1.add(refreshBtn);
 		
-		JButton insertCBtn = new JButton("<html>&nbsp;&nbsp;adicionar</html>");
+		JButton insertCBtn = new JButton("<html>&nbsp;&nbsp;cadastrar</html>");
+		insertCBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(refreshBtn);
+				addCliente addClienteFrame = new addCliente();
+
+				currentFrame.dispose();
+				addClienteFrame.setVisible(true);
+			}
+		});
 		insertCBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("insert-icon.png")));
 		insertCBtn.setHorizontalAlignment(SwingConstants.RIGHT);
 		insertCBtn.setBounds(530, 10, 117, 23);
 		panel_1.add(insertCBtn);
 		
 		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(new Color(211, 211, 211));
 		textField = new JTextField();
 		textField.setFont(new Font("Verdana", Font.PLAIN, 14));
 		String buscarCliente = "Buscar pelo nome";
 
 		panel_7.setOpaque(true);
 		panel_7.setBorder(null);
-		panel_7.setBounds(10, 291, 668, 92);
+		panel_7.setBounds(0, 276, 791, 135);
 		panel_1.add(panel_7);
 		panel_7.setLayout(null);
 		
