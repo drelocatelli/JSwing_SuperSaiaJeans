@@ -16,6 +16,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import Controller.ClientesController;
 import Controller.MainController;
@@ -26,10 +27,11 @@ import Models.Clientes;
 public class Menu extends JFrame {
 	
 	public static MainController config = new MainController();
-
 	private JPanel contentPane;
 	private JTable table;
 	private JTable table_1;
+	private int num_clientes;
+
 
 	/**
 	 * Launch the application.
@@ -112,37 +114,30 @@ public class Menu extends JFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(0, 44, 791, 232);
 		panel_1.add(panel_3);
-		panel_3.setLayout(new BoxLayout(panel_3, BoxLayout.X_AXIS));
+		panel_3.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(0, 0, 791, 232);
 		panel_3.add(scrollPane_1);
-				
-		String col[] = {"ID", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Detalhes"};
 		
-		ClientesController clientesController = new ClientesController();
+		String col[] = {"ID", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Detalhes"};
 				
 		table_1 = new JTable();
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
 			}, col
 		));
-
-		DefaultTableModel modelo_1 = (DefaultTableModel) table_1.getModel();
-		table_1.setModel(modelo_1);
 		
-		for(Clientes cliente: clientesController.loadClientes()) {
-			modelo_1.addRow(new Object[] {
-					cliente.getId(),
-					cliente.getNome(),
-					cliente.getEndereco(),
-					cliente.getBairro(),
-					cliente.getCidade(),
-					cliente.getEstado(),
-					cliente.getCep(),
-					cliente.getTelefone(),
-				});
-		}
+		DefaultTableModel modelo_1 = (DefaultTableModel)table_1.getModel();
+		table_1.setRowSorter(new TableRowSorter<DefaultTableModel>(modelo_1));
+		readJTable1();
+
 		scrollPane_1.setViewportView(table_1);
+		
+		JLabel totalEl = new JLabel("Total: "+String.valueOf(num_clientes) + " clientes.");
+		totalEl.setHorizontalAlignment(SwingConstants.RIGHT);
+		totalEl.setBounds(83, 18, 698, 14);
+		panel_1.add(totalEl);
 		
 			
 		JPanel panel_2 = new JPanel();
@@ -153,5 +148,41 @@ public class Menu extends JFrame {
 		lblProdutos.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblProdutos.setBounds(10, 11, 107, 22);
 		panel_2.add(lblProdutos);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(72, 60, 382, 157);
+		panel_2.add(panel_4);
+		
+		JLabel lblNewLabel = new JLabel("<html><table><tr><td>aaa</td></tr><tr><td>aaa</td><td>aaa</td></tr></table></html>");
+		panel_4.add(lblNewLabel);
+	}
+	
+	
+	public void readJTable1() {
+		DefaultTableModel modelo_1 = (DefaultTableModel)table_1.getModel();
+		modelo_1.setNumRows(0);
+		
+		ClientesController clientesController = new ClientesController();
+		
+		for(Clientes cliente: clientesController.loadClientes()) {
+			num_clientes += 1;
+		}
+		
+		
+		for(Clientes cliente: clientesController.loadClientes()) {
+		
+			modelo_1.addRow(new String[] {
+					String.valueOf(cliente.getId()),
+					cliente.getNome(),
+					cliente.getEndereco(),
+					cliente.getBairro(),
+					cliente.getCidade(),
+					cliente.getEstado(),
+					String.valueOf(cliente.getCep()),
+					String.valueOf(cliente.getTelefone()),
+					cliente.getDetalhes(),
+				});
+		}
+	
 	}
 }

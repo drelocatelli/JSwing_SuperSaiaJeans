@@ -2,8 +2,8 @@ package Models;
 
 public class Clientes {
 	
-	public static int id, cep, telefone;
-	public static String nome, endereco, bairro, cidade, estado, detalhes;
+	private static int id, cep, telefone;
+	private static String nome, endereco, bairro, cidade, estado, detalhes;
 	
 	public Clientes() {
 		super();

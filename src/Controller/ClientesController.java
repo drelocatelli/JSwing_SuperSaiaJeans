@@ -12,11 +12,11 @@ import Database.Connect;
 import Models.Clientes;
 
 public class ClientesController {
-
+	
 	public ClientesController() {
 		super();
 	}
-	
+
 	public List<Clientes> loadClientes() {
 		Connection conn = null;
 		Statement st = null;
@@ -28,9 +28,7 @@ public class ClientesController {
 			
 			conn = Connect.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM clientes");
-			
-		
+			rs = st.executeQuery("SELECT  * FROM clientes");
 			while(rs.next()) {
 				Clientes cliente = new Clientes();
 				
@@ -43,9 +41,9 @@ public class ClientesController {
 				cliente.setCep(rs.getInt("cep"));
 				cliente.setTelefone(rs.getInt("telefone"));
 				cliente.setDetalhes(rs.getString("detalhes"));
-				
+
 				clienteList.add(cliente);
-				
+			
 			}
 
 			
