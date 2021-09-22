@@ -13,12 +13,20 @@ public class Connect {
 
 	private static Connection conn = null;
 	
+	private static String host, dbName, dbUser, dbPass;
+	
 	public static Connection getConnection() {
+		host = "localhost";
+		dbName = "sistemaLoja";
+		dbUser = "root";
+		dbPass = "";
+
+		
 		if (conn == null) {
 			try {
-				Properties props = loadProperties();
-				String url = "jdbc:mysql://"+props.getProperty("host")+":3306/"+props.getProperty("db");
-				conn = DriverManager.getConnection(url, props);
+				String url = String.format("jdbc:mysql://%s:3306/%s", host, dbName);
+				
+				conn = DriverManager.getConnection(url, dbUser, dbPass);
 			}
 			catch (SQLException e) {
 				throw new DbException(e.getMessage());

@@ -9,7 +9,7 @@ import Database.*;
 
 public class MainController {
 
-	public static String title, version, login, password;
+	public static String title, version, login, password, description;
 	
 	public MainController() {
 		super();
@@ -32,6 +32,7 @@ public class MainController {
 				version = rs.getString("version");
 				login = rs.getString("login");
 				password = rs.getString("senha");
+				description = rs.getString("description");
 			}
 			
 		}catch(SQLException e) {
@@ -39,7 +40,7 @@ public class MainController {
 		}finally{
 			Connect.closeResultSet(rs);
 			Connect.closeStatement(st);
-			Connect.closeConnection();
+//			Connect.closeConnection();
 		}
 		
 	}

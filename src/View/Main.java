@@ -107,7 +107,7 @@ public class Main extends JFrame {
 					dispose();
 					Menu menu = new Menu();
 					menu.setVisible(true);
-					menu.setExtendedState(menu.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+//					menu.setExtendedState(menu.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 				}else {
 					new JOptionPane().showMessageDialog(null, "Usuário e Senha não correspondem!", "Acesso Negado", JOptionPane.ERROR_MESSAGE);
 				}
