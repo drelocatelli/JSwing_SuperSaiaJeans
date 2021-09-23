@@ -18,13 +18,9 @@ public class ClientesController {
 		super();
 	}
 	
-	public boolean cadastrarCliente(List dados) {
-		
-		if(insertTableClientes(dados)) {
-			return true;
-		}else {
-			return false;
-		}
+	public boolean cadastrarCliente(List data) {
+
+		return insertTableClientes(data);
 		
 	}
 	
@@ -40,13 +36,15 @@ public class ClientesController {
 			st = conn.createStatement();
 			var query = "INSERT INTO clientes(nome, endereco, bairro, cidade, estado, cep, telefone) values(?, ?, ?, ?, ?, ?, ?)";
 			preparedStmt = conn.prepareStatement(query);
+			
 			preparedStmt.setString(1, (String) data.get(0));
 			preparedStmt.setString(2, (String) data.get(1));
 			preparedStmt.setString(3, (String) data.get(2));
 			preparedStmt.setString(4, (String) data.get(3));
 			preparedStmt.setString(5, (String) data.get(4));
-			preparedStmt.setInt(6, (int) data.get(5));
-			preparedStmt.setInt(7, (int) data.get(6));
+			preparedStmt.setString(6, (String) data.get(5)); // trim remove espaços da string
+			preparedStmt.setString(7, (String) data.get(6));
+			
 			preparedStmt.execute();
 			
 			return true;

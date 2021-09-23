@@ -176,12 +176,8 @@ public class Menu extends JFrame {
 		
 		scrollPane_1.setViewportView(table_1);
 		
-		JLabel totalEl = new JLabel("Total: "+String.valueOf(num_clientes) + " clientes.");
-		totalEl.setHorizontalAlignment(SwingConstants.RIGHT);
-		totalEl.setBounds(83, 287, 698, 14);
-		panel_1.add(totalEl);
-		
 		JButton refreshBtn = new JButton("<html>&nbsp;&nbsp;atualizar</html>");
+		refreshBtn.setFont(new Font("MS Gothic", Font.PLAIN, 14));
 		refreshBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(refreshBtn);
@@ -194,10 +190,11 @@ public class Menu extends JFrame {
 		});
 		refreshBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("refresh-icon.png")));
 		refreshBtn.setHorizontalAlignment(SwingConstants.RIGHT);
-		refreshBtn.setBounds(664, 10, 117, 23);
+		refreshBtn.setBounds(628, 10, 135, 23);
 		panel_1.add(refreshBtn);
 		
 		JButton insertCBtn = new JButton("<html>&nbsp;&nbsp;cadastrar</html>");
+		insertCBtn.setFont(new Font("MS Gothic", Font.PLAIN, 14));
 		insertCBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -210,7 +207,7 @@ public class Menu extends JFrame {
 		});
 		insertCBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("insert-icon.png")));
 		insertCBtn.setHorizontalAlignment(SwingConstants.RIGHT);
-		insertCBtn.setBounds(530, 10, 117, 23);
+		insertCBtn.setBounds(483, 10, 135, 23);
 		panel_1.add(insertCBtn);
 		
 		JPanel panel_7 = new JPanel();
@@ -237,12 +234,22 @@ public class Menu extends JFrame {
 		panel_7.add(textField);
 		textField.setColumns(10);
 		
-		JButton insertCBtn_1 = new JButton("<html>&nbsp;&nbsp;&nbsp;&nbsp;filtrar</html>");
-		insertCBtn_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		insertCBtn_1.setBounds(432, 25, 117, 43);
+		JButton insertCBtn_1 = new JButton("<html>&nbsp;&nbsp;filtrar</html>");
+		insertCBtn_1.setFont(new Font("MS Gothic", Font.PLAIN, 14));
+		insertCBtn_1.setBounds(432, 25, 135, 43);
 		panel_7.add(insertCBtn_1);
 		insertCBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("filter-icon.png")));
 		insertCBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(Color.GRAY);
+		panel_8.setBounds(683, -1, 108, 21);
+		panel_7.add(panel_8);
+		
+		JLabel totalEl = new JLabel("Total: "+String.valueOf(num_clientes) + " clientes.");
+		panel_8.add(totalEl);
+		totalEl.setForeground(Color.WHITE);
+		totalEl.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JLabel lblClientes = new JLabel("Clientes");
 		lblClientes.setBounds(10, 11, 781, 22);

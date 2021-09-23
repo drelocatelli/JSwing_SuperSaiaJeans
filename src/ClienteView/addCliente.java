@@ -1,5 +1,6 @@
 package ClienteView;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -36,6 +37,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Robot;
 
 public class addCliente extends JFrame {
 	
@@ -132,6 +136,20 @@ public class addCliente extends JFrame {
 		panel_2.add(lblNewLabel_1);
 		
 		nomeIn = new JTextField();
+		nomeIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		nomeIn.setBounds(10, 39, 522, 25);
 		panel_2.add(nomeIn);
 		nomeIn.setColumns(10);
@@ -141,6 +159,39 @@ public class addCliente extends JFrame {
 		panel_2.add(lblNewLabel_2);
 		
 		enderecoIn = new JTextField();
+		enderecoIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		enderecoIn.addActionListener(new ActionListener() {
+			public void actionPerformed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		enderecoIn.setColumns(10);
 		enderecoIn.setBounds(10, 98, 754, 25);
 		panel_2.add(enderecoIn);
@@ -150,6 +201,39 @@ public class addCliente extends JFrame {
 		panel_2.add(lblNewLabel_3);
 		
 		bairroIn = new JTextField();
+		bairroIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		bairroIn.addActionListener(new ActionListener() {
+			public void actionPerformed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		bairroIn.setColumns(10);
 		bairroIn.setBounds(10, 164, 332, 25);
 		panel_2.add(bairroIn);
@@ -159,6 +243,20 @@ public class addCliente extends JFrame {
 		panel_2.add(lblNewLabel_3_1);
 		
 		JTextField cidadeIn = new JTextField();
+		cidadeIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		cidadeIn.setColumns(10);
 		cidadeIn.setBounds(354, 164, 178, 25);
 		panel_2.add(cidadeIn);
@@ -168,6 +266,20 @@ public class addCliente extends JFrame {
 		panel_2.add(lblNewLabel_3_1_1);
 		
 		estadoIn = new JTextField();
+		estadoIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		estadoIn.setColumns(10);
 		estadoIn.setBounds(542, 164, 46, 25);
 		panel_2.add(estadoIn);
@@ -176,7 +288,17 @@ public class addCliente extends JFrame {
 		lblNewLabel_3_1_1_1.setBounds(598, 147, 46, 14);
 		panel_2.add(lblNewLabel_3_1_1_1);
 		
+		JButton nextBtn = new JButton("cadastrar");
+
+		
 		cepIn = new JTextField();
+		cepIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// envia formulario
+				nextBtn.doClick();
+			}
+		});
 		cepIn.setColumns(10);
 		cepIn.setBounds(598, 164, 166, 25);
 		panel_2.add(cepIn);
@@ -186,18 +308,35 @@ public class addCliente extends JFrame {
 		panel_2.add(lblNewLabel_3_2);
 		
 		telefoneIn = new JTextField();
+		telefoneIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// robô da tecla dinamica
+					try {
+						Robot robot = new Robot();
+						robot.keyPress(KeyEvent.VK_TAB);
+					}catch(AWTException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		telefoneIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		telefoneIn.setColumns(10);
 		telefoneIn.setBounds(542, 39, 222, 25);
 		panel_2.add(telefoneIn);
 		
-		List dados = new ArrayList();
+		List<String> dados = new ArrayList<String>();
 
-		JButton nextBtn = new JButton("cadastrar");
 		nextBtn.setFont(new Font("MS Gothic", Font.PLAIN, 14));
 		nextBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object[] options = {"Salvar", "Cancelar"};
-				int msgDialog = JOptionPane.showOptionDialog(null, "Salvar cliente", "Deseja salvar cliente?",
+				int msgDialog = JOptionPane.showOptionDialog(null, "Deseja salvar cliente?", "Salvar cliente",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 						null, options, options[0]);
 				
@@ -213,6 +352,10 @@ public class addCliente extends JFrame {
 					ClientesController clientesController = new ClientesController();				
 					if(clientesController.cadastrarCliente(dados)) {
 						JOptionPane.showMessageDialog(null, "Dados inseridos!", "Status", JOptionPane.INFORMATION_MESSAGE);
+						JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(nextBtn);
+						Menu menu = new Menu();
+						currentFrame.dispose();
+						menu.setVisible(true);
 					}else {
 						JOptionPane.showMessageDialog(null, "Ocorreu um erro.", "Status", JOptionPane.ERROR_MESSAGE);
 					}
