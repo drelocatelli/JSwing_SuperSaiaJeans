@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import java.awt.Font;
 
 import Controller.MainController;
@@ -16,6 +18,7 @@ import Painel.Menu;
 
 import java.awt.Color;
 import com.jgoodies.forms.layout.FormLayout;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
@@ -57,6 +60,12 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		// seta tema FlatLaf
+				try {
+					UIManager.setLookAndFeel(new FlatLightLaf());		
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 		setResizable(false);
 		// import config title
 		title = config.title;

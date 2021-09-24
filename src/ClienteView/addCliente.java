@@ -105,7 +105,7 @@ public class addCliente extends JFrame {
 		panel.add(panel_1);
 			
 		JButton cancelBtn = new JButton("cancelar");
-		cancelBtn.setFont(new Font("MS Gothic", Font.PLAIN, 14));
+		cancelBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
 		cancelBtn.setBounds(10, 268, 108, 23);
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -335,7 +335,7 @@ public class addCliente extends JFrame {
 		
 		List<String> dados = new ArrayList<String>();
 
-		nextBtn.setFont(new Font("MS Gothic", Font.PLAIN, 14));
+		nextBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
 		nextBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object[] options = {"Salvar", "Cancelar"};
