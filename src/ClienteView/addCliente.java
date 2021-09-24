@@ -109,7 +109,7 @@ public class addCliente extends JFrame {
 		cancelBtn.setBounds(10, 268, 108, 23);
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Menu frame = new Menu();
+				Menu frame = new Menu("1");
 				JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(cancelBtn);
 				currentFrame.dispose();
 				frame.setVisible(true);
@@ -296,7 +296,10 @@ public class addCliente extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// envia formulario
-				nextBtn.doClick();
+				if(e.getKeyCode() == 10) {
+					nextBtn.doClick();
+
+				}
 			}
 		});
 		cepIn.setColumns(10);
@@ -353,7 +356,7 @@ public class addCliente extends JFrame {
 					if(clientesController.cadastrarCliente(dados)) {
 						JOptionPane.showMessageDialog(null, "Dados inseridos!", "Status", JOptionPane.INFORMATION_MESSAGE);
 						JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(nextBtn);
-						Menu menu = new Menu();
+						Menu menu = new Menu("1");
 						currentFrame.dispose();
 						menu.setVisible(true);
 					}else {

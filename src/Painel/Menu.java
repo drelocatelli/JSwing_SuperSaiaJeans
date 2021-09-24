@@ -65,7 +65,7 @@ public class Menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
+					Menu frame = new Menu("0");
 					frame.setVisible(true);
 //					frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 				} catch (Exception e) {
@@ -78,7 +78,9 @@ public class Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {		
+	
+	// param optional
+	public Menu(String tab) {		
 		setResizable(false);
 		
 		setBackground(new Color(135, 206, 235));
@@ -230,13 +232,13 @@ public class Menu extends JFrame {
 				textField.selectAll();
 			}
 		});
-		textField.setBounds(97, 25, 325, 43);
+		textField.setBounds(97, 39, 325, 43);
 		panel_7.add(textField);
 		textField.setColumns(10);
 		
 		JButton insertCBtn_1 = new JButton("<html>&nbsp;&nbsp;filtrar</html>");
 		insertCBtn_1.setFont(new Font("MS Gothic", Font.PLAIN, 14));
-		insertCBtn_1.setBounds(432, 25, 135, 43);
+		insertCBtn_1.setBounds(431, 40, 135, 43);
 		panel_7.add(insertCBtn_1);
 		insertCBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("filter-icon.png")));
 		insertCBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -278,5 +280,11 @@ public class Menu extends JFrame {
 		
 		JPanel panel_5 = new JPanel();
 		tabbedPane.addTab("Vendas", null, panel_5, null);
+		
+		if(Integer.parseInt(tab) > 0) {
+			tabbedPane.setSelectedIndex(Integer.parseInt(tab));
+		}
+		
+//		tabbedPane.setSelectedIndex(1);
 	}
 }

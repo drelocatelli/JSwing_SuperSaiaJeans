@@ -105,7 +105,7 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(userEl.getText().equals(config.login) && String.valueOf(senhaEl.getPassword()).equals(config.password)) {
 					dispose();
-					Menu menu = new Menu();
+					Menu menu = new Menu("0");
 					menu.setVisible(true);
 //					menu.setExtendedState(menu.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 				}else {

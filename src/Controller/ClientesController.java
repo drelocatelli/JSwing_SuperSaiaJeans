@@ -18,13 +18,8 @@ public class ClientesController {
 		super();
 	}
 	
-	public boolean cadastrarCliente(List data) {
-
-		return insertTableClientes(data);
-		
-	}
 	
-	public boolean insertTableClientes(List data) {
+	public boolean cadastrarCliente(List data) {
 		
 		Connection conn = null;
 		Statement st = null;
