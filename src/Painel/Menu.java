@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -41,6 +42,7 @@ import ClienteView.editCliente;
 import Controller.ClientesController;
 import Controller.MainController;
 import Database.Connect;
+import Theme.DefaultTheme;
 import View.Main;
 
 import javax.swing.JButton;
@@ -96,6 +98,8 @@ public class Menu extends JFrame {
 	
 	// param optional
 	public Menu(String tab) {
+		// seta tema FlatLaf
+		new DefaultTheme();
 		setResizable(false);
 		
 		setBackground(new Color(135, 206, 235));
@@ -275,6 +279,7 @@ public class Menu extends JFrame {
 		
 		// editando tabela
 		String dadosAlterados[] = new String[clientes_col.length];
+		Object[][] dadosSalvos = new Object[clientes_col.length][clientes_col.length];
 		
 		JButton salvarBtn = new JButton("");
 		salvarBtn.setBounds(450, 4, 180, 36);
@@ -290,13 +295,22 @@ public class Menu extends JFrame {
 				salvarBtn.setText("");
 				JOptionPane.showMessageDialog(null, "Dados foram salvos!\nTabela bloqueada", "Ação", JOptionPane.INFORMATION_MESSAGE);
 				
+				ClientesController clientesController = new ClientesController();
+				
 				for(int i = 0; i < dadosAlterados.length; i++) {
 					if(dadosAlterados[i] != null) {
 						for(int j = 0; j < clientes_col.length; j++) {
-							System.out.println(table_1.getModel().getValueAt(Integer.valueOf(dadosAlterados[i]), j));
+							dadosSalvos[i][j] = table_1.getModel().getValueAt(Integer.valueOf(dadosAlterados[i]), j);
 						}
 					}
-					
+				}
+								
+				for(int i = 0; i < dadosSalvos.length; i++) {
+					for(int j = 0; j < clientes_col.length; j++) {
+						if(dadosSalvos[i][j] != null) {
+							clientesController.editarCliente((String) dadosSalvos[i][j], clientes_col.length);	
+						}
+					}
 				}
 			}
 		});

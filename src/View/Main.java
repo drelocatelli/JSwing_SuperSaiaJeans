@@ -15,9 +15,11 @@ import java.awt.Font;
 
 import Controller.MainController;
 import Painel.Menu;
+import Theme.DefaultTheme;
 
 import java.awt.Color;
 import com.jgoodies.forms.layout.FormLayout;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -61,11 +63,8 @@ public class Main extends JFrame {
 	 */
 	public Main() {
 		// seta tema FlatLaf
-				try {
-					UIManager.setLookAndFeel(new FlatLightLaf());		
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
+		new DefaultTheme();
+		
 		setResizable(false);
 		// import config title
 		title = config.title;

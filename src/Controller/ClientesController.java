@@ -21,9 +21,15 @@ public class ClientesController {
 		super();
 	}
 	
-public boolean editarCliente(List data) {
+public boolean editarCliente(String data, int tamanho) {
 	
-		System.out.println(data);
+		String dado[] = new String[tamanho];
+		
+		for(int i = 0; i < dado.length; i++) {
+			dado[i] = data;
+		}
+		
+		return true;
 		
 //		Connection conn = null;
 //		Statement st = null;

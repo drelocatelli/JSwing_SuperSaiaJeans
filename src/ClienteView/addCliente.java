@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import Controller.ClientesController;
 import Controller.MainController;
 import Painel.Menu;
+import Theme.DefaultTheme;
 import View.Main;
 
 import javax.swing.JLabel;
@@ -73,6 +74,8 @@ public class addCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public addCliente() {
+		// seta tema FlatLaf
+		new DefaultTheme();
 		setResizable(false);
 		setTitle(config.title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,7 +108,7 @@ public class addCliente extends JFrame {
 		panel.add(panel_1);
 			
 		JButton cancelBtn = new JButton("cancelar");
-		cancelBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
+		cancelBtn.setFont(new Font("Verdana", Font.PLAIN, 13));
 		cancelBtn.setBounds(10, 268, 108, 23);
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -335,7 +338,7 @@ public class addCliente extends JFrame {
 		
 		List<String> dados = new ArrayList<String>();
 
-		nextBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
+		nextBtn.setFont(new Font("Verdana", Font.PLAIN, 13));
 		nextBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object[] options = {"Salvar", "Cancelar"};
