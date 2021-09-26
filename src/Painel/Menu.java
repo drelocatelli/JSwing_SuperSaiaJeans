@@ -181,7 +181,7 @@ public class Menu extends JFrame {
 		scrollPane_1.setBounds(0, 0, 791, 232);
 		panel_3.add(scrollPane_1);
 		
-		String clientes_col[] = {"ID", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Detalhes"};
+		String clientes_col[] = {"ID", "Nome", "EndereÃ§o", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Detalhes"};
 		DefaultTableModel modelo_1 = new DefaultTableModel();
 		modelo_1.setColumnIdentifiers(clientes_col);
 		
@@ -233,14 +233,24 @@ public class Menu extends JFrame {
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(211, 211, 211));
 		
-		JButton searchClienteBtn = new JButton("<html>&nbsp;&nbsp;filtrar</html>");
-		
 		searchClienteIn = new JTextField();
+		searchClienteIn.setBackground(new Color(254, 255, 222));
+		JLabel searchClienteLatest = new JLabel("");
 		searchClienteIn.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == 10) {
-					searchClienteBtn.doClick();
+				// limpa tabela
+				try {
+					while (table_1.getModel().getRowCount()>0){
+						((DefaultTableModel) table_1.getModel()).removeRow(0);
+			        }
+				}catch(Exception e1) {
+				}
+				
+				clientes.loadClientesNome(modelo_1, searchClienteIn.getText());
+				
+				if(!searchClienteIn.getText().equals("")) {
+					searchClienteLatest.setText("Ãšltima busca: "+searchClienteIn.getText());
 				}
 			}
 		});
@@ -253,7 +263,7 @@ public class Menu extends JFrame {
 		panel_1.add(panel_7);
 		panel_7.setLayout(null);
 		
-		searchClienteIn.setText(buscarCliente);
+		searchClienteIn.setText("Filtrar...");
 
 		searchClienteIn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -261,38 +271,9 @@ public class Menu extends JFrame {
 				searchClienteIn.selectAll();
 			}
 		});
-		searchClienteIn.setBounds(51, 36, 325, 43);
+		searchClienteIn.setBounds(51, 45, 683, 36);
 		panel_7.add(searchClienteIn);
 		searchClienteIn.setColumns(10);
-		
-		JLabel searchClienteLatest = new JLabel("");
-		
-		searchClienteBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
-				// limpa tabela
-				try {
-					while (table_1.getModel().getRowCount()>0){
-						((DefaultTableModel) table_1.getModel()).removeRow(0);
-			        }
-				}catch(Exception e1) {
-				}
-				
-				clientes.loadClientesNome(modelo_1, searchClienteIn.getText());
-				
-				if(!searchClienteIn.getText().equals("")) {
-					searchClienteLatest.setText("Última busca: "+searchClienteIn.getText());
-				}
-				
-			}
-		});
-		searchClienteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		searchClienteBtn.setForeground(Color.WHITE);
-		searchClienteBtn.setBackground(Color.GRAY);
-		searchClienteBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
-		searchClienteBtn.setBounds(385, 37, 135, 43);
-		panel_7.add(searchClienteBtn);
-		searchClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("filter-icon.png")));
-		searchClienteBtn.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setBackground(Color.GRAY);
@@ -307,7 +288,19 @@ public class Menu extends JFrame {
 		searchClienteLatest.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		searchClienteLatest.setBounds(51, 90, 469, 14);
 		panel_7.add(searchClienteLatest);
+		// limpa tabela
+		try {
+			while (table_1.getModel().getRowCount()>0){
+				((DefaultTableModel) table_1.getModel()).removeRow(0);
+	        }
+		}catch(Exception e1) {
+		}
 		
+		clientes.loadClientesNome(modelo_1, searchClienteIn.getText());
+		
+		if(!searchClienteIn.getText().equals("")) {
+			searchClienteLatest.setText("Ãšltima busca: "+searchClienteIn.getText());
+		}
 		JButton editClienteBtn = new JButton("<html>&nbsp;&nbsp;gerenciar cliente</html>");
 		
 		JLabel lblClientes = new JLabel("Clientes");
@@ -323,13 +316,13 @@ public class Menu extends JFrame {
 				editClienteBtn.setEnabled(false);
 				
 				table_1.setEnabled(true);
-				JOptionPane.showMessageDialog(null, "Tabela desbloqueada para edição!", "Ação", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Tabela desbloqueada para ediÃ§Ã£o!", "AÃ§Ã£o", JOptionPane.WARNING_MESSAGE);
 				
-				// modo seleçao tabela
+				// modo seleï¿½ao tabela
 				table_1.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent ev) {
-						// modo ediçao da tabela
+						// modo ediï¿½ao da tabela
 						removerBtn.setEnabled(true);
 						
 						table_1.getModel().addTableModelListener(new TableModelListener() {
@@ -351,7 +344,7 @@ public class Menu extends JFrame {
 									table_1.setEnabled(false);
 									editClienteBtn.setEnabled(true);
 								}else {
-									JOptionPane.showMessageDialog(null, "Ocorreu algum erro e não foi possível salvar!", "Status", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Ocorreu algum erro e nÃ£o foi possÃ­vel salvar!", "Status", JOptionPane.ERROR_MESSAGE);
 								}
 							}
 
