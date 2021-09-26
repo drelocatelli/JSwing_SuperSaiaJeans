@@ -11,7 +11,7 @@ public class DefaultTheme {
 	public DefaultTheme() {
 		try {
 			UIManager.setLookAndFeel(new FlatIntelliJLaf());
-			UIManager.put( "Button.arc", 20);
+			UIManager.put( "Button.arc", 15);
 			UIManager.put( "Component.focusWidth", 2);
 			UIManager.put( "Button.focusWidth", 2);
 			UIManager.put("Button.background", new Color(219, 219, 219));

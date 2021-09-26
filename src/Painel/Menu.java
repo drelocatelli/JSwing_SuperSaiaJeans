@@ -261,7 +261,7 @@ public class Menu extends JFrame {
 				searchClienteIn.selectAll();
 			}
 		});
-		searchClienteIn.setBounds(51, 50, 325, 43);
+		searchClienteIn.setBounds(51, 36, 325, 43);
 		panel_7.add(searchClienteIn);
 		searchClienteIn.setColumns(10);
 		
@@ -289,7 +289,7 @@ public class Menu extends JFrame {
 		searchClienteBtn.setForeground(Color.WHITE);
 		searchClienteBtn.setBackground(Color.GRAY);
 		searchClienteBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
-		searchClienteBtn.setBounds(385, 51, 135, 43);
+		searchClienteBtn.setBounds(385, 37, 135, 43);
 		panel_7.add(searchClienteBtn);
 		searchClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("filter-icon.png")));
 		searchClienteBtn.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -305,7 +305,7 @@ public class Menu extends JFrame {
 		totalEl.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		searchClienteLatest.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		searchClienteLatest.setBounds(51, 104, 469, 14);
+		searchClienteLatest.setBounds(51, 90, 469, 14);
 		panel_7.add(searchClienteLatest);
 		
 		JButton editClienteBtn = new JButton("<html>&nbsp;&nbsp;gerenciar cliente</html>");
@@ -340,7 +340,7 @@ public class Menu extends JFrame {
 								
 								String clientesData[] = new String[table_1.getColumnCount()];
 								
-								for(int count = 0; count < table_1.getColumnCount() - 1; count++) {
+								for(int count = 0; count < table_1.getColumnCount(); count++) {
 									// dados da tabela
 									String tbClientesData = table_1.getModel().getValueAt(table_1.getSelectedRow(), count).toString();
 									clientesData[count] = tbClientesData;

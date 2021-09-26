@@ -55,6 +55,10 @@ public class ClientesController {
 	public boolean editarCliente(String data[]) {
 
 		List<String> dados = Arrays.asList(data);
+		
+		for (int i = 0; i < dados.size(); i++) {
+			System.out.println(dados.get(i));
+		}
 
 		return editTbClientes(dados);
 
@@ -70,7 +74,7 @@ public class ClientesController {
 			
 			conn = Connect.getConnection();
 			st = conn.createStatement();
-			var query = "UPDATE clientes SET nome=?, endereco=?, bairro=?, cidade=?, estado=?, cep=?, telefone=? WHERE id=?";
+			var query = "UPDATE clientes SET nome=?, endereco=?, bairro=?, cidade=?, estado=?, cep=?, telefone=?, detalhes=? WHERE id=?";
 			preparedStmt = conn.prepareStatement(query);
 
 			preparedStmt.setString(1, (String) data.get(1));
@@ -80,7 +84,8 @@ public class ClientesController {
 			preparedStmt.setString(5, (String) data.get(5));
 			preparedStmt.setString(6, (String) data.get(6));
 			preparedStmt.setString(7, (String) data.get(7));
-			preparedStmt.setString(8, String.valueOf( Integer.valueOf( (String) data.get(0) ) ) );
+			preparedStmt.setString(8, (String) data.get(8));
+			preparedStmt.setString(9, String.valueOf( Integer.valueOf( (String) data.get(0) ) ) );
 
 			preparedStmt.execute();
 			
@@ -162,7 +167,7 @@ public class ClientesController {
 						rs.getString("estado"),
 						rs.getString("cep"),
 						rs.getString("telefone"),
-						rs.getString("detalhes")
+						(rs.getString("detalhes") == null) ? "" : rs.getString("detalhes")
 				});
 
 			}
@@ -200,7 +205,7 @@ public class ClientesController {
 						rs.getString("estado"),
 						rs.getString("cep"),
 						rs.getString("telefone"),
-						rs.getString("detalhes")
+						(rs.getString("detalhes") == null) ? "" : rs.getString("detalhes")
 				});
 
 			}

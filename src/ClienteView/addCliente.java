@@ -3,6 +3,7 @@ package ClienteView;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -108,8 +109,9 @@ public class addCliente extends JFrame {
 		panel.add(panel_1);
 			
 		JButton cancelBtn = new JButton("cancelar");
+		cancelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cancelBtn.setFont(new Font("Verdana", Font.PLAIN, 13));
-		cancelBtn.setBounds(10, 268, 108, 23);
+		cancelBtn.setBounds(20, 256, 108, 35);
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Menu frame = new Menu("1");
@@ -339,6 +341,7 @@ public class addCliente extends JFrame {
 		List<String> dados = new ArrayList<String>();
 
 		nextBtn.setFont(new Font("Verdana", Font.PLAIN, 13));
+		nextBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		nextBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object[] options = {"Salvar", "Cancelar"};
@@ -369,7 +372,7 @@ public class addCliente extends JFrame {
 				
 			}
 		});
-		nextBtn.setBounds(678, 268, 108, 23);
+		nextBtn.setBounds(666, 256, 108, 35);
 		panel_1.add(nextBtn);
 
 
