@@ -2,6 +2,7 @@ package Painel;
 
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -132,6 +133,7 @@ public class Menu extends JFrame {
 		
 		JButton logoutBtn = new JButton("Sair");
 		logoutBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		logoutBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		logoutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Main frame = new Main();
@@ -207,6 +209,11 @@ public class Menu extends JFrame {
 		panel_1.add(refreshBtn);
 		
 		JButton insertCBtn = new JButton("<html>&nbsp;&nbsp;cadastrar</html>");
+		insertCBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		insertCBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		insertCBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
 		insertCBtn.addMouseListener(new MouseAdapter() {
 			@Override
@@ -248,6 +255,11 @@ public class Menu extends JFrame {
 		textField.setColumns(10);
 		
 		JButton insertCBtn_1 = new JButton("<html>&nbsp;&nbsp;filtrar</html>");
+		insertCBtn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		insertCBtn_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		insertCBtn_1.setForeground(Color.WHITE);
 		insertCBtn_1.setBackground(Color.GRAY);
 		insertCBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -273,15 +285,18 @@ public class Menu extends JFrame {
 		lblClientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_1.add(lblClientes);
 		
-		JButton removerBtn = new JButton("<html>&nbsp;&nbsp;remover</html>");		
+		JButton removerBtn = new JButton("<html>&nbsp;&nbsp;remover</html>");	
+		removerBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		removerBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				// remove linha
-				if(clientes.deleteTbClientes(table_1.getSelectedRow() + 1)) {
+				if(clientes.deleteTbClientes(Integer.valueOf((String) table_1.getModel().getValueAt(table_1.getSelectedRow(), 0)))) {
+					table_1.setRowSelectionInterval(table_1.getSelectedRow() - 1, 0);
 					removerBtn.setEnabled(false);
-					modelo_1.removeRow(table_1.getSelectedRow());
+					((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
 				}
+				
 				
 			}
 		});
@@ -330,6 +345,7 @@ public class Menu extends JFrame {
 				
 			}
 		});
+		editClienteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		editClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("edit-icon.png")));
 		editClienteBtn.setHorizontalAlignment(SwingConstants.RIGHT);
 		editClienteBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -370,6 +386,7 @@ public class Menu extends JFrame {
 			tabbedPane.setSelectedIndex(Integer.parseInt(tab));
 		}
 		
+		refreshBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		refreshBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clientes.loadClientes(modelo_1);
