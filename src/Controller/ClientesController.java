@@ -60,18 +60,17 @@ public class ClientesController {
 
 	}
 
-	public boolean editTbClientes(List data) {	
+	public boolean editTbClientes(List<String> data) {	
 		Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		PreparedStatement preparedStmt = null;
 
 		try {
+			
 			conn = Connect.getConnection();
 			st = conn.createStatement();
-			var query = "UPDATE clientes "
-					+ "SET nome = ?, endereco = ?, bairro = ?, cidade = ?, estado = ?, cep = ?, telefone = ?"
-					+ "WHERE id = ?";
+			var query = "UPDATE clientes SET nome=?, endereco=?, bairro=?, cidade=?, estado=?, cep=?, telefone=? WHERE id=?";
 			preparedStmt = conn.prepareStatement(query);
 
 			preparedStmt.setString(1, (String) data.get(1));
@@ -81,10 +80,10 @@ public class ClientesController {
 			preparedStmt.setString(5, (String) data.get(5));
 			preparedStmt.setString(6, (String) data.get(6));
 			preparedStmt.setString(7, (String) data.get(7));
-			preparedStmt.setString(8, String.valueOf(Integer.valueOf((String) data.get(0)) - 1) );
+			preparedStmt.setString(8, String.valueOf( Integer.valueOf( (String) data.get(0) ) ) );
 
 			preparedStmt.execute();
-
+			
 			return true;
 
 		}catch(SQLException e) {
@@ -135,6 +134,49 @@ public class ClientesController {
 			//			Connect.closeConnection();
 		}
 
+	}
+	
+	public DefaultTableModel loadClientesNome(DefaultTableModel modelo, String nome) {
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		PreparedStatement preparedStmt = null;
+
+		try {
+			conn = Connect.getConnection();
+			st = conn.createStatement();
+			String query = "SELECT  * FROM clientes WHERE nome LIKE ?";
+			preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, String.format("%%%s%%", nome));
+			
+			rs = preparedStmt.executeQuery();
+			
+			while(rs.next()) {
+
+				modelo.addRow(new Object[] {
+						String.valueOf(rs.getInt("id")),
+						rs.getString("nome"),
+						rs.getString("endereco"),
+						rs.getString("bairro"),
+						rs.getString("cidade"),
+						rs.getString("estado"),
+						rs.getString("cep"),
+						rs.getString("telefone"),
+						rs.getString("detalhes")
+				});
+
+			}
+
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally{
+			Connect.closeResultSet(rs);
+			Connect.closeStatement(st);
+			//			Connect.closeConnection();
+		}
+
+		return modelo;
 	}
 
 	public DefaultTableModel loadClientes(DefaultTableModel modelo) {

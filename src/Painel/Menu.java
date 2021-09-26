@@ -73,7 +73,7 @@ public class Menu extends JFrame {
 	private JTable table;
 	private JTable table_1;
 	private int num_clientes;
-	private JTextField textField;
+	private JTextField searchClienteIn;
 	
 
 	/**
@@ -232,8 +232,19 @@ public class Menu extends JFrame {
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(211, 211, 211));
-		textField = new JTextField();
-		textField.setFont(new Font("Verdana", Font.PLAIN, 14));
+		
+		JButton searchClienteBtn = new JButton("<html>&nbsp;&nbsp;filtrar</html>");
+		
+		searchClienteIn = new JTextField();
+		searchClienteIn.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					searchClienteBtn.doClick();
+				}
+			}
+		});
+		searchClienteIn.setFont(new Font("Verdana", Font.PLAIN, 14));
 		String buscarCliente = "Buscar pelo nome";
 
 		panel_7.setOpaque(true);
@@ -242,31 +253,42 @@ public class Menu extends JFrame {
 		panel_1.add(panel_7);
 		panel_7.setLayout(null);
 		
-		textField.setText(buscarCliente);
+		searchClienteIn.setText(buscarCliente);
 
-		textField.addMouseListener(new MouseAdapter() {
+		searchClienteIn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				textField.selectAll();
+				searchClienteIn.selectAll();
 			}
 		});
-		textField.setBounds(51, 50, 325, 43);
-		panel_7.add(textField);
-		textField.setColumns(10);
+		searchClienteIn.setBounds(51, 50, 325, 43);
+		panel_7.add(searchClienteIn);
+		searchClienteIn.setColumns(10);
 		
-		JButton insertCBtn_1 = new JButton("<html>&nbsp;&nbsp;filtrar</html>");
-		insertCBtn_1.addActionListener(new ActionListener() {
+		
+		searchClienteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(searchClienteIn.getText());
+				
+				// limpa tabela
+				try {
+					while (table_1.getModel().getRowCount()>0){
+						((DefaultTableModel) table_1.getModel()).removeRow(0);
+			        }
+				}catch(Exception e1) {
+				}
+				
+				clientes.loadClientesNome(modelo_1, searchClienteIn.getText());
 			}
 		});
-		insertCBtn_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		insertCBtn_1.setForeground(Color.WHITE);
-		insertCBtn_1.setBackground(Color.GRAY);
-		insertCBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
-		insertCBtn_1.setBounds(385, 51, 135, 43);
-		panel_7.add(insertCBtn_1);
-		insertCBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("filter-icon.png")));
-		insertCBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		searchClienteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		searchClienteBtn.setForeground(Color.WHITE);
+		searchClienteBtn.setBackground(Color.GRAY);
+		searchClienteBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
+		searchClienteBtn.setBounds(385, 51, 135, 43);
+		panel_7.add(searchClienteBtn);
+		searchClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("filter-icon.png")));
+		searchClienteBtn.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setBackground(Color.GRAY);
@@ -287,19 +309,6 @@ public class Menu extends JFrame {
 		
 		JButton removerBtn = new JButton("<html>&nbsp;&nbsp;remover</html>");	
 		removerBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		removerBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				// remove linha
-				if(clientes.deleteTbClientes(Integer.valueOf((String) table_1.getModel().getValueAt(table_1.getSelectedRow(), 0)))) {
-					table_1.setRowSelectionInterval(table_1.getSelectedRow() - 1, 0);
-					removerBtn.setEnabled(false);
-					((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
-				}
-				
-				
-			}
-		});
 		
 		editClienteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -345,6 +354,21 @@ public class Menu extends JFrame {
 				
 			}
 		});
+		
+		removerBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// remove linha
+				if(clientes.deleteTbClientes(Integer.valueOf((String) table_1.getModel().getValueAt(table_1.getSelectedRow(), 0)))) {
+					table_1.setRowSelectionInterval(table_1.getSelectedRow() - 1, 0);
+					removerBtn.setEnabled(false);
+					((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
+				}
+				
+				
+			}
+		});
+		
 		editClienteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		editClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("edit-icon.png")));
 		editClienteBtn.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -385,15 +409,23 @@ public class Menu extends JFrame {
 		if(Integer.parseInt(tab) > 0) {
 			tabbedPane.setSelectedIndex(Integer.parseInt(tab));
 		}
+	
 		
 		refreshBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		refreshBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// limpa tabela
+				try {
+					while (table_1.getModel().getRowCount()>0){
+						((DefaultTableModel) table_1.getModel()).removeRow(0);
+			        }
+				}catch(Exception e1) {
+				}
+				// carrega dados
 				clientes.loadClientes(modelo_1);
 				JOptionPane.showMessageDialog(null, "Dados atualizados!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
-//		tabbedPane.setSelectedIndex(1);
 	}
 }
