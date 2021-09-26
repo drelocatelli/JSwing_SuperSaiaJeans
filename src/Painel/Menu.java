@@ -220,7 +220,7 @@ public class Menu extends JFrame {
 		});
 		insertCBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("insert-icon.png")));
 		insertCBtn.setHorizontalAlignment(SwingConstants.RIGHT);
-		insertCBtn.setBounds(501, 9, 135, 29);
+		insertCBtn.setBounds(355, 9, 135, 29);
 		panel_1.add(insertCBtn);
 		
 		JPanel panel_7 = new JPanel();
@@ -269,10 +269,22 @@ public class Menu extends JFrame {
 		JButton editClienteBtn = new JButton("<html>&nbsp;&nbsp;gerenciar cliente</html>");
 		
 		JLabel lblClientes = new JLabel("Clientes");
-		lblClientes.setBounds(10, 11, 278, 22);
+		lblClientes.setBounds(10, 11, 135, 22);
 		lblClientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		panel_1.add(lblClientes);
 		
+		JButton removerBtn = new JButton("<html>&nbsp;&nbsp;remover</html>");		
+		removerBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// remove linha
+				if(clientes.deleteTbClientes(table_1.getSelectedRow() + 1)) {
+					removerBtn.setEnabled(false);
+					modelo_1.removeRow(table_1.getSelectedRow());
+				}
+				
+			}
+		});
 		
 		editClienteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -286,6 +298,8 @@ public class Menu extends JFrame {
 					@Override
 					public void mousePressed(MouseEvent ev) {
 						// modo ediçao da tabela
+						removerBtn.setEnabled(true);
+						
 						table_1.getModel().addTableModelListener(new TableModelListener() {
 							@Override
 							public void tableChanged(TableModelEvent e) {
@@ -307,7 +321,6 @@ public class Menu extends JFrame {
 								}else {
 									JOptionPane.showMessageDialog(null, "Ocorreu algum erro e não foi possível salvar!", "Status", JOptionPane.ERROR_MESSAGE);
 								}
-								
 							}
 
 						});
@@ -320,8 +333,15 @@ public class Menu extends JFrame {
 		editClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("edit-icon.png")));
 		editClienteBtn.setHorizontalAlignment(SwingConstants.RIGHT);
 		editClienteBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
-		editClienteBtn.setBounds(298, 9, 193, 29);
+		editClienteBtn.setBounds(152, 9, 193, 29);
 		panel_1.add(editClienteBtn);
+		
+		removerBtn.setEnabled(false);
+		removerBtn.setHorizontalAlignment(SwingConstants.RIGHT);
+		removerBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("trash.png")));
+		removerBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
+		removerBtn.setBounds(501, 9, 135, 29);
+		panel_1.add(removerBtn);
 		
 			
 		JPanel panel_2 = new JPanel();

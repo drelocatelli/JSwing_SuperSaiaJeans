@@ -21,6 +21,36 @@ public class ClientesController {
 	public ClientesController() {
 		super();
 	}
+	
+	public boolean deleteTbClientes(int id) {
+		Connection conn = null;
+		Statement st = null;
+		ResultSet rs = null;
+		PreparedStatement preparedStmt = null;
+
+		try {
+			conn = Connect.getConnection();
+			st = conn.createStatement();
+			var query = "DELETE FROM clientes "
+					+ "WHERE id = ?";
+			preparedStmt = conn.prepareStatement(query);
+
+			preparedStmt.setString(1, String.valueOf(id));
+
+			preparedStmt.execute();
+
+			return true;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+
+			return false;
+		}finally{
+			Connect.closeResultSet(rs);
+			Connect.closeStatement(st);
+			//			Connect.closeConnection();
+		}
+	}
 
 	public boolean editarCliente(String data[]) {
 
