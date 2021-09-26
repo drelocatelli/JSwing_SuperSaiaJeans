@@ -265,11 +265,10 @@ public class Menu extends JFrame {
 		panel_7.add(searchClienteIn);
 		searchClienteIn.setColumns(10);
 		
+		JLabel searchClienteLatest = new JLabel("");
 		
 		searchClienteBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(searchClienteIn.getText());
-				
+			public void actionPerformed(ActionEvent e) {	
 				// limpa tabela
 				try {
 					while (table_1.getModel().getRowCount()>0){
@@ -279,6 +278,11 @@ public class Menu extends JFrame {
 				}
 				
 				clientes.loadClientesNome(modelo_1, searchClienteIn.getText());
+				
+				if(!searchClienteIn.getText().equals("")) {
+					searchClienteLatest.setText("Última busca: "+searchClienteIn.getText());
+				}
+				
 			}
 		});
 		searchClienteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -299,6 +303,10 @@ public class Menu extends JFrame {
 		panel_8.add(totalEl);
 		totalEl.setForeground(Color.WHITE);
 		totalEl.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		searchClienteLatest.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		searchClienteLatest.setBounds(51, 104, 469, 14);
+		panel_7.add(searchClienteLatest);
 		
 		JButton editClienteBtn = new JButton("<html>&nbsp;&nbsp;gerenciar cliente</html>");
 		
