@@ -200,16 +200,7 @@ public class Menu extends JFrame {
 		
 		JButton refreshBtn = new JButton("<html>&nbsp;&nbsp;atualizar</html>");
 		refreshBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
-		refreshBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(refreshBtn);
-				modelo_1.setRowCount(0);
-				clientes.loadClientes(modelo_1);
-				JOptionPane.showMessageDialog(null, "Dados atualizados!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-//				currentFrame.dispose();
-//				currentFrame.setVisible(true);
-			}
-		});
+		
 		refreshBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("refresh-icon.png")));
 		refreshBtn.setHorizontalAlignment(SwingConstants.RIGHT);
 		refreshBtn.setBounds(646, 9, 135, 29);
@@ -277,49 +268,6 @@ public class Menu extends JFrame {
 		
 		JButton editClienteBtn = new JButton("<html>&nbsp;&nbsp;gerenciar cliente</html>");
 		
-		// editando tabela
-		String dadosAlterados[] = new String[clientes_col.length];
-		Object[][] dadosSalvos = new Object[clientes_col.length][clientes_col.length];
-		
-		JButton salvarBtn = new JButton("");
-		salvarBtn.setBounds(450, 4, 180, 36);
-		panel_7.add(salvarBtn);
-		salvarBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editClienteBtn.setEnabled(true);
-				table_1.setEnabled(false);
-				salvarBtn.setOpaque(true);
-				salvarBtn.setContentAreaFilled(false);
-				salvarBtn.setBorderPainted(false);
-				salvarBtn.setEnabled(false);
-				salvarBtn.setText("");
-				JOptionPane.showMessageDialog(null, "Dados foram salvos!\nTabela bloqueada", "Ação", JOptionPane.INFORMATION_MESSAGE);
-				
-				ClientesController clientesController = new ClientesController();
-				
-				for(int i = 0; i < dadosAlterados.length; i++) {
-					if(dadosAlterados[i] != null) {
-						for(int j = 0; j < clientes_col.length; j++) {
-							dadosSalvos[i][j] = table_1.getModel().getValueAt(Integer.valueOf(dadosAlterados[i]), j);
-						}
-					}
-				}
-								
-				for(int i = 0; i < dadosSalvos.length; i++) {
-					for(int j = 0; j < clientes_col.length; j++) {
-						if(dadosSalvos[i][j] != null) {
-							clientesController.editarCliente((String) dadosSalvos[i][j], clientes_col.length);	
-						}
-					}
-				}
-			}
-		});
-		salvarBtn.setOpaque(true);
-		salvarBtn.setContentAreaFilled(false);
-		salvarBtn.setBorderPainted(false);
-		salvarBtn.setEnabled(false);
-		salvarBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
-		
 		JLabel lblClientes = new JLabel("Clientes");
 		lblClientes.setBounds(10, 11, 278, 22);
 		lblClientes.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -331,25 +279,42 @@ public class Menu extends JFrame {
 				editClienteBtn.setEnabled(false);
 				
 				table_1.setEnabled(true);
-				salvarBtn.setOpaque(false);
-				salvarBtn.setContentAreaFilled(true);
-				salvarBtn.setBorderPainted(true);
-				salvarBtn.setEnabled(true);
-				salvarBtn.setText("salvar alterações");
-				JOptionPane.showMessageDialog(null, "Tabela desbloqueada!", "Ação", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Tabela desbloqueada para edição!", "Ação", JOptionPane.WARNING_MESSAGE);
 				
-				// modo edição tabela
-				table_1.getModel().addTableModelListener(new TableModelListener() {
-
+				// modo seleçao tabela
+				table_1.addMouseListener(new MouseAdapter() {
 					@Override
-					public void tableChanged(TableModelEvent e) {
-						System.out.println("Editou coluna: "+e.getColumn()+" Linha:" + e.getFirstRow());
-					
-						dadosAlterados[e.getFirstRow()] = String.valueOf(e.getFirstRow());
-					}
+					public void mousePressed(MouseEvent ev) {
+						// modo ediçao da tabela
+						table_1.getModel().addTableModelListener(new TableModelListener() {
+							@Override
+							public void tableChanged(TableModelEvent e) {
+//								System.out.println("Editou coluna: "+table_1.getSelectedColumn()+" Linha:" + table_1.getSelectedRow());
+//								System.out.println("Colunas: "+table_1.getColumnCount());
+								
+								String clientesData[] = new String[table_1.getColumnCount()];
+								
+								for(int count = 0; count < table_1.getColumnCount() - 1; count++) {
+									// dados da tabela
+									String tbClientesData = table_1.getModel().getValueAt(table_1.getSelectedRow(), count).toString();
+									clientesData[count] = tbClientesData;
+								}
+								
+								// altera dados no banco
+								if(clientes.editarCliente(clientesData)) {
+									table_1.setEnabled(false);
+									editClienteBtn.setEnabled(true);
+								}else {
+									JOptionPane.showMessageDialog(null, "Ocorreu algum erro e não foi possível salvar!", "Status", JOptionPane.ERROR_MESSAGE);
+								}
+								
+							}
 
-					
+						});
+						
+					}
 				});
+				
 			}
 		});
 		editClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("edit-icon.png")));
@@ -384,6 +349,13 @@ public class Menu extends JFrame {
 		if(Integer.parseInt(tab) > 0) {
 			tabbedPane.setSelectedIndex(Integer.parseInt(tab));
 		}
+		
+		refreshBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clientes.loadClientes(modelo_1);
+				JOptionPane.showMessageDialog(null, "Dados atualizados!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		
 //		tabbedPane.setSelectedIndex(1);
 	}
