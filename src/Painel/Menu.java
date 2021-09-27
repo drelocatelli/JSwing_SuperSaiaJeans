@@ -394,12 +394,38 @@ public class Menu extends JFrame {
 		lblProdutos.setBounds(10, 11, 107, 22);
 		panel_2.add(lblProdutos);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(72, 60, 382, 157);
-		panel_2.add(panel_4);
+		JButton editProdutosBtn = new JButton("<html>&nbsp;&nbsp;gerenciar produto</html>");
+		editProdutosBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("edit-icon.png")));
+		editProdutosBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		editProdutosBtn.setHorizontalAlignment(SwingConstants.RIGHT);
+		editProdutosBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
+		editProdutosBtn.setBounds(141, 11, 204, 29);
+		panel_2.add(editProdutosBtn);
 		
-		JLabel lblNewLabel = new JLabel("<html><table><tr><td>aaa</td></tr><tr><td>aaa</td><td>aaa</td></tr></table></html>");
-		panel_4.add(lblNewLabel);
+		JButton insertCBtn_1 = new JButton("<html>&nbsp;&nbsp;cadastrar</html>");
+		insertCBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("insert-icon.png")));
+		insertCBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		insertCBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
+		insertCBtn_1.setBounds(355, 11, 135, 29);
+		panel_2.add(insertCBtn_1);
+		
+		JButton removerBtn_1 = new JButton("<html>&nbsp;&nbsp;remover</html>");
+		removerBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("trash.png")));
+		removerBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		removerBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
+		removerBtn_1.setEnabled(false);
+		removerBtn_1.setBounds(501, 11, 135, 29);
+		panel_2.add(removerBtn_1);
+		
+		JButton refreshBtn_1 = new JButton("<html>&nbsp;&nbsp;atualizar</html>");
+		refreshBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("refresh-icon.png")));
+		refreshBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		refreshBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
+		refreshBtn_1.setBounds(646, 11, 135, 29);
+		panel_2.add(refreshBtn_1);
 		
 		JPanel panel_6 = new JPanel();
 		tabbedPane.addTab("Departamento", null, panel_6, null);
