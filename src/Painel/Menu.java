@@ -135,11 +135,13 @@ public class Menu extends JFrame {
 		logoutBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		logoutBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		logoutBtn.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				Main frame = new Main();
 				JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(logoutBtn);
 				currentFrame.dispose();
-				frame.setVisible(true);
+				frame.show();
+//				frame.setVisible(true);
 			}
 		});
 		logoutBtn.setForeground(Color.WHITE);
@@ -182,12 +184,16 @@ public class Menu extends JFrame {
 		panel_3.add(scrollPane_1);
 		
 		String clientes_col[] = {"ID", "Nome", "Endereço", "Bairro", "Cidade", "Estado", "CEP", "Telefone", "Detalhes"};
-		DefaultTableModel modelo_1 = new DefaultTableModel();
+		DefaultTableModel modelo_1 = new DefaultTableModel() {
+				@Override
+				public boolean isCellEditable(int row, int column){
+					return true;
+				}
+			};
 		modelo_1.setColumnIdentifiers(clientes_col);
 		
 		table_1 = new JTable();
 		table_1.setBackground(UIManager.getColor("InternalFrame.borderColor"));
-		table_1.setEnabled(false);
 		table_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table_1.setModel(modelo_1);
 		
@@ -200,7 +206,7 @@ public class Menu extends JFrame {
 		
 		scrollPane_1.setViewportView(table_1);
 		
-		JButton refreshBtn = new JButton("<html>&nbsp;&nbsp;atualizar</html>");
+		JButton refreshBtn = new JButton("<html>&nbsp;&nbsp;recarregar</html>");
 		refreshBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
 		
 		refreshBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("refresh-icon.png")));
@@ -209,10 +215,6 @@ public class Menu extends JFrame {
 		panel_1.add(refreshBtn);
 		
 		JButton insertCBtn = new JButton("<html>&nbsp;&nbsp;cadastrar</html>");
-		insertCBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		insertCBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		insertCBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
 		insertCBtn.addMouseListener(new MouseAdapter() {
@@ -288,20 +290,12 @@ public class Menu extends JFrame {
 		searchClienteLatest.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		searchClienteLatest.setBounds(51, 90, 469, 14);
 		panel_7.add(searchClienteLatest);
-		// limpa tabela
-		try {
-			while (table_1.getModel().getRowCount()>0){
-				((DefaultTableModel) table_1.getModel()).removeRow(0);
-	        }
-		}catch(Exception e1) {
-		}
-		
 		clientes.loadClientesNome(modelo_1, searchClienteIn.getText());
 		
 		if(!searchClienteIn.getText().equals("")) {
 			searchClienteLatest.setText("Última busca: "+searchClienteIn.getText());
 		}
-		JButton editClienteBtn = new JButton("<html>&nbsp;&nbsp;gerenciar cliente</html>");
+		JButton editClienteBtn = new JButton("<html>&nbsp;&nbsp;editar tabela</html>");
 		
 		JLabel lblClientes = new JLabel("Clientes");
 		lblClientes.setBounds(10, 11, 135, 22);
@@ -322,10 +316,12 @@ public class Menu extends JFrame {
 				table_1.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent ev) {
+						
 						// modo edi�ao da tabela
 						removerBtn.setEnabled(true);
 						
 						table_1.getModel().addTableModelListener(new TableModelListener() {
+							
 							@Override
 							public void tableChanged(TableModelEvent e) {
 //								System.out.println("Editou coluna: "+table_1.getSelectedColumn()+" Linha:" + table_1.getSelectedRow());
@@ -361,9 +357,10 @@ public class Menu extends JFrame {
 				
 				// remove linha
 				if(clientes.deleteTbClientes(Integer.valueOf((String) table_1.getModel().getValueAt(table_1.getSelectedRow(), 0)))) {
-					table_1.setRowSelectionInterval(table_1.getSelectedRow() - 1, 0);
+//					table_1.setRowSelectionInterval(table_1.getSelectedRow() - 1, 0);
 					removerBtn.setEnabled(false);
-					((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
+					refreshBtn.doClick();
+//					((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
 				}
 				
 				
@@ -374,7 +371,7 @@ public class Menu extends JFrame {
 		editClienteBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("edit-icon.png")));
 		editClienteBtn.setHorizontalAlignment(SwingConstants.RIGHT);
 		editClienteBtn.setFont(new Font("Verdana", Font.PLAIN, 14));
-		editClienteBtn.setBounds(152, 9, 193, 29);
+		editClienteBtn.setBounds(170, 9, 175, 29);
 		panel_1.add(editClienteBtn);
 		
 		removerBtn.setEnabled(false);
@@ -395,6 +392,7 @@ public class Menu extends JFrame {
 		panel_2.add(lblProdutos);
 		
 		JButton editProdutosBtn = new JButton("<html>&nbsp;&nbsp;gerenciar produto</html>");
+		editProdutosBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		editProdutosBtn.setIcon(new ImageIcon(getClass().getClassLoader().getResource("edit-icon.png")));
 		editProdutosBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -406,6 +404,11 @@ public class Menu extends JFrame {
 		panel_2.add(editProdutosBtn);
 		
 		JButton insertCBtn_1 = new JButton("<html>&nbsp;&nbsp;cadastrar</html>");
+		insertCBtn_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		insertCBtn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		insertCBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("insert-icon.png")));
 		insertCBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		insertCBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -413,6 +416,7 @@ public class Menu extends JFrame {
 		panel_2.add(insertCBtn_1);
 		
 		JButton removerBtn_1 = new JButton("<html>&nbsp;&nbsp;remover</html>");
+		removerBtn_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		removerBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("trash.png")));
 		removerBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		removerBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -420,7 +424,8 @@ public class Menu extends JFrame {
 		removerBtn_1.setBounds(501, 11, 135, 29);
 		panel_2.add(removerBtn_1);
 		
-		JButton refreshBtn_1 = new JButton("<html>&nbsp;&nbsp;atualizar</html>");
+		JButton refreshBtn_1 = new JButton("<html>&nbsp;&nbsp;recarregar</html>");
+		refreshBtn_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		refreshBtn_1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("refresh-icon.png")));
 		refreshBtn_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		refreshBtn_1.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -446,11 +451,14 @@ public class Menu extends JFrame {
 					while (table_1.getModel().getRowCount()>0){
 						((DefaultTableModel) table_1.getModel()).removeRow(0);
 			        }
+					
+					JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(logoutBtn);
+					currentFrame.dispose();
+					Menu frame = new Menu("1");
+					frame.setVisible(true);
+					JOptionPane.showMessageDialog(null, "Dados atualizados!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
 				}catch(Exception e1) {
 				}
-				// carrega dados
-				clientes.loadClientes(modelo_1);
-				JOptionPane.showMessageDialog(null, "Dados atualizados!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		

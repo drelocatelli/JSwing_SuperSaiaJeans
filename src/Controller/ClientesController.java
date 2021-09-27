@@ -56,9 +56,9 @@ public class ClientesController {
 
 		List<String> dados = Arrays.asList(data);
 		
-		for (int i = 0; i < dados.size(); i++) {
-			System.out.println(dados.get(i));
-		}
+//		for (int i = 0; i < dados.size(); i++) {
+//			System.out.println(dados.get(i));
+//		}
 
 		return editTbClientes(dados);
 
