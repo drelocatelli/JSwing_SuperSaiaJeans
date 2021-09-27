@@ -305,20 +305,31 @@ public class Menu extends JFrame {
 		JButton removerBtn = new JButton("<html>&nbsp;&nbsp;remover</html>");	
 		removerBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
+		boolean editClienteBtnEnabled = false;
+		
+		// remover cliente
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent ev) {
+				
+				// modo edi�ao da tabela
+				removerBtn.setEnabled(true);
+				
+			};
+		});
+		
+		// editar cliente
 		editClienteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editClienteBtn.setEnabled(false);
+				editClienteBtn.setEnabled(editClienteBtnEnabled);
 				
-				table_1.setEnabled(true);
 				JOptionPane.showMessageDialog(null, "Tabela desbloqueada para edição!", "Ação", JOptionPane.WARNING_MESSAGE);
 				
 				// modo sele�ao tabela
 				table_1.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mousePressed(MouseEvent ev) {
-						
-						// modo edi�ao da tabela
-						removerBtn.setEnabled(true);
+						removerBtn.setEnabled(false);
 						
 						table_1.getModel().addTableModelListener(new TableModelListener() {
 							
